@@ -13,14 +13,16 @@ Take full page screenshot
     New Page    ${url}
     Run Keyword And Ignore Error    Click    ${accept_cookies_selector}
     ${domain}=    Evaluate    urllib.parse.urlparse('${url}').netloc
-    Take Screenshot    ${CURDIR}${/}output${/}${domain}    fullPage=True
+    Run Keyword And Ignore Error
+    ...    Take Screenshot
+    ...    ${CURDIR}${/}output${/}${domain}
+    ...    fullPage=True
 
 *** Tasks ***
 Take full page screenshots of given websites
     @{websites}=    Read Table From Csv    ${WEBSITES_CSV}    header=True
     FOR    ${website}    IN    @{websites}
-        Run Keyword And Ignore Error
-        ...    Take full page screenshot
+        Take full page screenshot
         ...    ${website}[url]
         ...    ${website}[accept_cookies_selector]
     END
